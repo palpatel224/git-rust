@@ -1,20 +1,11 @@
-use crate::objects::Object;
-use anyhow::Context;
-use std::path::Path;
-
-pub(crate) fn invoke(write: bool, file: &Path) -> anyhow::Result<()> {
-    let object = Object::blob_from_file(file).context("open blob input file")?;
-    let hash = if write {
-        object
-            .write_to_objects()
-            .context("stream file into blob object file")?
-    } else {
-        object
-            .write(std::io::sink())
-            .context("stream file into blob object")?
-    };
-
-    println!("{}", hex::encode(hash));
-
+use crate::error::GitError;
+use crate::objects::GitObject;
+pub fn hash_object(args: Vec<String>) -> Result<(), GitError> {
+    let filename = args
+        .last()
+        .ok_or(GitError::any("missing filename to hash"))?;
+    let write = args.contains(&String::from("-w"));
+    let git_object = GitObject::from_path(filename, write)?;
+    println!("{}", git_object.hex_string());
     Ok(())
 }
