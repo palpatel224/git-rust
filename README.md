@@ -1,60 +1,45 @@
-[![progress-banner](https://backend.codecrafters.io/progress/git/9e1014ba-8203-4be8-ba75-c9c4e84bdeb1)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# Git Implementation in Rust
 
-This is a starting point for Rust solutions to the
-["Build Your Own Git" Challenge](https://codecrafters.io/challenges/git).
+## Features
 
-In this challenge, you'll build a small Git implementation that's capable of
-initializing a repository, creating commits and cloning a public repository.
-Along the way we'll learn about the `.git` directory, Git objects (blobs,
-commits, trees etc.), Git's transfer protocols and more.
+This implementation supports core Git operations:
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+- `init` - Initialize a new Git repository
+- `clone` - Clone a remote repository
+- `cat-file` - Display Git object contents
+- `hash-object` - Create Git objects from files
+- `ls-tree` - List contents of a tree object
+- `write-tree` - Create a tree object from the working directory
+- `commit-tree` - Create a commit object
 
-# Passing the first stage
+## Prerequisites
 
-The entry point for your Git implementation is in `src/main.rs`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
+- Rust 1.80+ with Cargo
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
+## Usage
 
-That's all!
-
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `cargo (1.87)` installed locally
-1. Run `./your_program.sh` to run your Git implementation, which is implemented
-   in `src/main.rs`. This command compiles your Rust project, so it might be
-   slow the first time you run it. Subsequent runs will be fast.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
-
-# Testing locally
-
-The `your_program.sh` script is expected to operate on the `.git` folder inside
-the current working directory. If you're running this inside the root of this
-repository, you might end up accidentally damaging your repository's `.git`
-folder.
-
-We suggest executing `your_program.sh` in a different folder when testing
-locally. For example:
+### Quick Start
 
 ```sh
-mkdir -p /tmp/testing && cd /tmp/testing
-/path/to/your/repo/your_program.sh init
+# Build and run
+cargo build
+# run directly with cargo
+cargo run -- init
 ```
 
-To make this easier to type out, you could add a
-[shell alias](https://shapeshed.com/unix-alias/):
+## Project Structure
 
-```sh
-alias mygit=/path/to/your/repo/your_program.sh
+- `src/main.rs` - Entry point and command routing
+- `src/commands/` - Individual Git command implementations
+- `src/objects.rs` - Git object handling (blobs, trees, commits)
+- `src/error.rs` - Error handling utilities
 
-mkdir -p /tmp/testing && cd /tmp/testing
-mygit init
-```
+## Learning Goals
+
+This project demonstrates:
+
+- Git's internal object model (blobs, trees, commits)
+- Repository initialization and structure
+- Object compression and storage
+- Git's transfer protocols
+- SHA-1 hashing and content addressing
